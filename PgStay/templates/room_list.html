@@ -1,0 +1,23 @@
+{% block content %}
+  {% load static %}
+
+  <div class="wrapper">
+
+    <table align="center">
+      <thead>
+        <tr>
+          <th>Floor</th>
+          <th>Room Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for room in room_list %}
+          <tr>
+            <td>{{ room.floor }}</td>
+            <td>{{ room.room_number }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

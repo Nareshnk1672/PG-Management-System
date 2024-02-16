@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title></title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   <style>
+       .room {
+           position: relative;
+           width: 100%;
+           height: 100%;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+
+       .room-number {
+           font-size: 24px;
+           font-weight: bold;
+           color: green;
+       }
+
+       .availability {
+           font-size: 24px;
+           font-weight: bold;
+           color: red;
+       }
+
+       .room-description {
+           font-size: 18px;
+           color: gray;
+       }
+
+       .room-selector {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-color: rgba(0, 0, 0, 0.5);
+           cursor: pointer;
+       }
+
+       .room-selector:hover {
+           background-color: rgba(0, 0, 0, 0.7);
+       }
+   </style>
+</head>
+<body>
+   <div class="container">
+       <div class="row">
+           <div class="col-md-12">
+               <div class="room-selector" id="room-selector"></div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-12">
+               <div class="room" id="room-0">
+                   <div class="room-number">A0</div>
+                   <div class="availability"></div>
+                   <div class="room-description">Room A0</div>
+               </div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-12">
+               <div class="room" id="room-1">
+                   <div class="room-number">A1</div>
+                   <div class="availability"></div>
+                   <div class="room-description">Room A1</div>
+               </div>
+           </div>
+       </div>
+       <!-- Add more rooms here -->
+   </div>
+   <script>
+       const roomSelector = document.querySelector('#room-selector');
+       const rooms = document.querySelectorAll('.room');
+
+       roomSelector.addEventListener('click', function (event) {
+           event.preventDefault();
+           const roomNumber = event.target.innerText;
+           const room = rooms.find(room => room.querySelector('.room-number').innerText === roomNumber);
+           room.querySelector('.availability').innerText = room.querySelector('.availability').innerText === '0' ? '1' : '0';
+       });
+   </script>
+</body>
+</html>

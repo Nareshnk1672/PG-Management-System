@@ -1,0 +1,183 @@
+{% block body %}
+    {% load static %}
+      <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="redirectToPreviousPage()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                    <ol>
+                        <li>To book a PG accommodation, you must provide accurate and complete information during the registration process.</li>
+                        <li>Payment terms and schedules will be communicated during the booking process.</li>
+                        <li>Late payments may result in additional charges or termination of services.</li>
+                        <li>Residents must comply with all rules and regulations outlined by the PG management.</li>
+                        <li>Any damage caused by a resident to the property or its amenities will be the financial responsibility of the resident.</li>
+                        <li>Visitors must register with the management and adhere to the PG rules during their stay.</li>
+                        <li>The management reserves the right to terminate the stay immediately in case of serious breaches of PG rules or non-payment of dues.</li>
+                        <li>Refunds will not be provided for early termination of stay unless specified otherwise in the agreement.</li>
+                        <li>Residents are responsible for the security of their personal belongings.</li>
+                        <li>The management will take all reasonable measures to ensure the safety and security of the residents.</li>
+                    </ol>
+                    <p>By clicking on the 'Accept' button, you confirm that you have read, understood, and agreed to our terms and conditions.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="acceptBtn" onclick="acceptTerms()">Accept</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="redirectToPreviousPage()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="modal fade" id="fillDetailsModal" tabindex="-1" role="dialog" aria-labelledby="fillDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fillDetailsModalLabel">Fill Your Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="detailsForm" action="{% url 'fill_details' %}" method="post" onsubmit="includeCurrentURL()">
+                        {% csrf_token %}
+                      <table align="center">
+          <tr>
+            <th>Name:</th>
+            <td><input type="text" name="txtName" required></td>
+          </tr>
+          <tr>
+            <th>Photo:</th>
+            <td><input type="file" name="photo" required></td>
+          </tr>
+          <tr>
+            <th>Father Name:</th>
+            <td><input type="text" name="txtFName" required></td>
+          </tr>
+          <tr>
+            <th>Age:</th>
+            <td><input type="number" name="txtAge" required></td>
+          </tr>
+          <tr>
+            <th>Date of Birth:</th>
+            <td><input type="date" name="date_of_birth" required></td>
+          </tr>
+          <tr>
+            <th>Address:</th>
+            <td><input type="text" name="txtAddress" required></td>
+          </tr>
+          <tr>
+            <th>Aadhar:</th>
+            <td><input type="number" name="txtAadhar" required></td>
+          </tr>
+          <tr>
+            <th>Date of Joining:</th>
+            <td><input type="date" name="date_of_joining" required></td>
+          </tr>
+          <tr>
+            <th>Educational Qualification:</th>
+            <td><input type="text" name="txtEducation" required></td>
+          </tr>
+          <tr>
+            <th>Profession:</th>
+            <td><input type="text" name="txtProfession" required></td>
+          </tr>
+          <tr>
+            <th>Office Address:</th>
+            <td><input type="text" name="txtOffice" required></td>
+          </tr>
+          <tr>
+            <th>Phone:</th>
+            <td><input type="number" name="txtPhone" required></td>
+          </tr>
+          <tr>
+            <th>Monthly Rent:</th>
+            <td><input type="number" name="txtRent" required></td>
+          </tr>
+          <tr>
+            <th>Deposit:</th>
+            <td><input type="number" name="txtDeposit" required></td>
+          </tr>
+          <tr>
+            <th>Maintenance Charge:</th>
+            <td><input type="number" name="txtCharge" required></td>
+          </tr>
+          <tr>
+            <td><button type="submit" name="btnSub">Submit</button></td>
+          </tr>
+        </table>
+                        <!-- Details form fields -->
+                        <!-- ... -->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Your other modals and scripts... -->
+
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        var submittedSuccessfully = false; // Flag to track successful submission
+
+        function acceptTerms() {
+            $("#termsModal").modal('hide');
+            $("#fillDetailsModal").modal('show');
+        }
+
+        function includeCurrentURL() {
+            const currentURL = window.location.href;
+            document.getElementById('detailsForm').action = currentURL;
+        }
+
+        function closeModal() {
+            if (submittedSuccessfully) {
+                // Display success message only if the form was successfully submitted
+                alert('Submitted successfully');
+
+                // Reset the flag
+                submittedSuccessfully = false;
+
+                // Delay the redirection to give time for the user to see the message
+                setTimeout(function () {
+                    redirectToPreviousPage();
+                }, 1000); // 1000 milliseconds (1 second) delay
+            } else {
+                // If not successful submission, just close the modal
+                redirectToPreviousPage();
+            }
+        }
+
+        function redirectToPreviousPage() {
+            // Go back to the page before the terms and conditions page
+            history.go(-1); //
+        }
+
+        $(document).ready(function() {
+            $("#termsModal").modal('show');
+        });
+
+        // Attach event listener to form submission
+        $('#detailsForm').submit(function(e) {
+            // Check if the submit button is clicked
+            if ($(document.activeElement).attr('name') === 'btnSub') {
+                // Add your form processing logic here
+
+                // Set the flag to indicate successful submission
+                submittedSuccessfully = true;
+            }
+
+            // Call the closeModal function after processing the form
+            closeModal();
+        });
+    </script>
+
+    <!-- ... (your other scripts and styles) ... -->
+
+{% endblock %}

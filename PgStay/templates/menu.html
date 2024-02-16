@@ -1,0 +1,34 @@
+{% extends 'base1.html' %}
+{% block content %}
+    {% load static %}
+ <style>
+  .menu {
+    width: calc(100% - 200px);
+   padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 200px; /* Added margin to leave space for vertical navigation bar */
+  }
+
+
+.menu img{
+position: fixed;
+    top: 70px; /* Adjusted top position to place image under blue header box */
+    right: 0;
+    width: calc(100% - 380px); /* Adjusted width to leave space for vertical navigation bar */
+    height:auto;
+    object-fit: cover;
+    z-index:-1;
+  }
+
+ </style>
+
+
+ <div class="menu">
+    <img id="menu-image" src="{% static 'images/img_2.png' %}">
+ </div>
+
+ <script src="{% static 'menu.js' %}"></script>
+{% endblock %}

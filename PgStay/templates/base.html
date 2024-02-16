@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    .img-fluid{
+    width:100%;
+    height:35em !important;
+    }
+</style>
+    {% block extra_css %}
+    <!-- Include your CSS styles here -->
+{% endblock %}
+</head>
+<body>
+<div>
+{% include 'navbar.html' %}
+</div>
+{% block content %}
+<div>
+  <img src="\static\images\img.png" class="img-fluid">
+</div>
+{% endblock %}
+<div>
+{% include 'footer.html' %}
+</div>
+</body>
+</html>
